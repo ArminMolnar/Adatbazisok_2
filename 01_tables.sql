@@ -10,8 +10,8 @@ CREATE TABLE termek(
        ar NUMBER NOT NULL,
        min_mennyiseg NUMBER,
        max_mennyiseg NUMBER,
-       created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
-       last_mod TIMESTAMP,
+       created_on DATE DEFAULT SYSDATE NOT NULL,
+       last_mod DATE,
        dml_flag VARCHAR2(1),
        version NUMBER    
 )TABLESPACE users;
@@ -20,8 +20,8 @@ CREATE TABLE raktar(
        raktar_id NUMBER PRIMARY KEY,
        megnevezes VARCHAR2(30) NOT NULL,       
        raktaros_id NUMBER NOT NULL,
-       created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
-       last_mod TIMESTAMP,
+       created_on DATE DEFAULT SYSDATE NOT NULL,
+       last_mod DATE,
        dml_flag VARCHAR2(1),
        version NUMBER    
 )TABLESPACE users;
@@ -32,8 +32,8 @@ CREATE TABLE raktaros(
        rendfokozat VARCHAR2(30),
        telefonszam VARCHAR2(20) NOT NULL,
        email VARCHAR2(40),
-       created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
-       last_mod TIMESTAMP,
+       created_on DATE DEFAULT SYSDATE NOT NULL,
+       last_mod DATE,
        dml_flag VARCHAR2(1),
        version NUMBER        
 )TABLESPACE users;
@@ -47,8 +47,8 @@ CREATE TABLE beszallito(
        telefonszam VARCHAR2(20) NOT NULL,
        email VARCHAR2(40),
        kapcsolattarto VARCHAR2(50),
-       created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
-       last_mod TIMESTAMP,
+       created_on DATE DEFAULT SYSDATE NOT NULL,
+       last_mod DATE,
        dml_flag VARCHAR2(1),
        version NUMBER         
 )TABLESPACE users;
@@ -59,8 +59,8 @@ CREATE TABLE reszleg(
        telefonszam VARCHAR2(20) NOT NULL,
        email VARCHAR2(40),
        anyagkezelo VARCHAR2(50),
-       created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
-       last_mod TIMESTAMP,
+       created_on DATE DEFAULT SYSDATE NOT NULL,
+       last_mod DATE,
        dml_flag VARCHAR2(1),
        version NUMBER        
 )TABLESPACE users;
@@ -74,10 +74,15 @@ CREATE TABLE rendeles(
        rendeles_datum DATE NOT NULL,
        teljesites_datum DATE,
        statusz VARCHAR2(30) NOT NULL,
-       created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
-       last_mod TIMESTAMP,
+       created_on DATE DEFAULT SYSDATE NOT NULL,
+       last_mod DATE,
        dml_flag VARCHAR2(1),
        version NUMBER         
 )TABLESPACE users;
 
-select * from reszleg;
+SELECT * FROM raktar;
+SELECT * FROM raktaros;
+SELECT * FROM beszallito;
+SELECT * FROM reszleg;
+SELECT * FROM termek;
+
