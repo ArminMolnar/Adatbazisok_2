@@ -18,8 +18,7 @@ CREATE TABLE termek(
 
 CREATE TABLE raktar(
        raktar_id NUMBER PRIMARY KEY,
-       megnevezes VARCHAR2(30) NOT NULL,
-       helyszin VARCHAR2(20) NOT NULL,
+       megnevezes VARCHAR2(30) NOT NULL,       
        raktaros_id NUMBER NOT NULL,
        created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
        last_mod TIMESTAMP,
