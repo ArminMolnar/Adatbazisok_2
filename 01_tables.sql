@@ -12,8 +12,8 @@ CREATE TABLE termek(
        max_mennyiseg NUMBER,
        created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
        last_mod TIMESTAMP,
-       DML_FLAG VARCHAR2(1),
-       VERSION NUMBER    
+       dml_flag VARCHAR2(1),
+       version NUMBER    
 )TABLESPACE users;
 
 CREATE TABLE raktar(
@@ -22,8 +22,8 @@ CREATE TABLE raktar(
        raktaros_id NUMBER NOT NULL,
        created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
        last_mod TIMESTAMP,
-       DML_FLAG VARCHAR2(1),
-       VERSION NUMBER    
+       dml_flag VARCHAR2(1),
+       version NUMBER    
 )TABLESPACE users;
 
 CREATE TABLE raktaros(
@@ -34,8 +34,8 @@ CREATE TABLE raktaros(
        email VARCHAR2(40),
        created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
        last_mod TIMESTAMP,
-       DML_FLAG VARCHAR2(1),
-       VERSION NUMBER        
+       dml_flag VARCHAR2(1),
+       version NUMBER        
 )TABLESPACE users;
 
 CREATE TABLE beszallito(
@@ -49,8 +49,8 @@ CREATE TABLE beszallito(
        kapcsolattarto VARCHAR2(50),
        created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
        last_mod TIMESTAMP,
-       DML_FLAG VARCHAR2(1),
-       VERSION NUMBER         
+       dml_flag VARCHAR2(1),
+       version NUMBER         
 )TABLESPACE users;
 
 CREATE TABLE reszleg(
@@ -61,8 +61,8 @@ CREATE TABLE reszleg(
        anyagkezelo VARCHAR2(50),
        created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
        last_mod TIMESTAMP,
-       DML_FLAG VARCHAR2(1),
-       VERSION NUMBER        
+       dml_flag VARCHAR2(1),
+       version NUMBER        
 )TABLESPACE users;
 
 CREATE TABLE rendeles(
@@ -76,7 +76,8 @@ CREATE TABLE rendeles(
        statusz VARCHAR2(30) NOT NULL,
        created_on TIMESTAMP DEFAULT SYSDATE NOT NULL,
        last_mod TIMESTAMP,
-       DML_FLAG VARCHAR2(1),
-       VERSION NUMBER         
+       dml_flag VARCHAR2(1),
+       version NUMBER         
 )TABLESPACE users;
 
+select * from reszleg;
