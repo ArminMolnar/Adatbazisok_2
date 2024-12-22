@@ -13,8 +13,13 @@ CREATE TABLE product(
        created_on DATE DEFAULT SYSDATE NOT NULL,
        last_mod DATE,
        dml_flag VARCHAR2(1),
-       version NUMBER    
-)TABLESPACE users;
+       version NUMBER,
+       constraint supplier_fk foreign key (supplier_id) references supplier(supplier_id),
+       constraint warehouse_fk foreign key (warehouse_id) references warehouse(warehouse_id),
+       constraint quantity_positive_check check (stock_quantity >= 0),
+       constraint price_positive_check check (product_price >= 0)
+       )TABLESPACE users;
+
 
 CREATE TABLE warehouse(
        warehouse_id NUMBER PRIMARY KEY,
@@ -23,7 +28,8 @@ CREATE TABLE warehouse(
        created_on DATE DEFAULT SYSDATE NOT NULL,
        last_mod DATE,
        dml_flag VARCHAR2(1),
-       version NUMBER    
+       version NUMBER,
+       constraint wh_coordinator_fk foreign key (warehouse_coordinator_id) references wh_coordinator(wh_coordinator_id)   
 )TABLESPACE users;
 
 CREATE TABLE wh_coordinator(
@@ -35,7 +41,7 @@ CREATE TABLE wh_coordinator(
        created_on DATE DEFAULT SYSDATE NOT NULL,
        last_mod DATE,
        dml_flag VARCHAR2(1),
-       version NUMBER        
+       version NUMBER,        
 )TABLESPACE users;
 
 CREATE TABLE supplier(
@@ -98,7 +104,7 @@ CREATE TABLE department_order(
 
 
 
-
+select * from product;
 
 
 
