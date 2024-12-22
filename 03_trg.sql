@@ -1,12 +1,12 @@
-CREATE OR REPLACE TRIGGER beszallito_trg
-  BEFORE INSERT OR UPDATE ON beszallito
+CREATE OR REPLACE TRIGGER supplier_trg
+  BEFORE INSERT OR UPDATE ON supplier
   FOR EACH ROW
 BEGIN
   IF inserting
   THEN
-    IF :new.beszallito_id IS NULL
+    IF :new.supplier_id IS NULL
     THEN
-      :new.beszallito_id := beszallito_seq.nextval;
+      :new.supplier_id := supplier_seq.nextval;
     END IF;
     :new.created_on := SYSDATE;
     :new.dml_flag  := 'I';
@@ -23,15 +23,15 @@ BEGIN
   :new.last_mod := SYSDATE; 
 END;
 
-CREATE OR REPLACE TRIGGER raktaros_trg
-  BEFORE INSERT OR UPDATE ON raktaros
+CREATE OR REPLACE TRIGGER wh_coordinator_trg
+  BEFORE INSERT OR UPDATE ON wh_coordinator
   FOR EACH ROW
 BEGIN
   IF inserting
   THEN
-    IF :new.raktaros_id IS NULL
+    IF :new.wh_coordinator_id IS NULL
     THEN
-      :new.raktaros_id := raktaros_seq.nextval;
+      :new.wh_coordinator_id := wh_coordinator_seq.nextval;
     END IF;
     :new.created_on := SYSDATE;
     :new.dml_flag  := 'I';
@@ -49,15 +49,16 @@ BEGIN
 
 END;
 
-CREATE OR REPLACE TRIGGER raktar_trg
-  BEFORE INSERT OR UPDATE ON raktar
+
+CREATE OR REPLACE TRIGGER warehouse_trg
+  BEFORE INSERT OR UPDATE ON warehouse
   FOR EACH ROW
 BEGIN
   IF inserting
   THEN
-    IF :new.raktar_id IS NULL
+    IF :new.warehouse_id IS NULL
     THEN
-      :new.raktar_id := raktar_seq.nextval;
+      :new.warehouse_id := warehouse_seq.nextval;
     END IF;
     :new.created_on := SYSDATE;
     :new.dml_flag  := 'I';
@@ -75,15 +76,16 @@ BEGIN
 
 END;
 
-CREATE OR REPLACE TRIGGER reszleg_trg
-  BEFORE INSERT OR UPDATE ON reszleg
+
+CREATE OR REPLACE TRIGGER department_trg
+  BEFORE INSERT OR UPDATE ON department
   FOR EACH ROW
 BEGIN
   IF inserting
   THEN
-    IF :new.reszleg_id IS NULL
+    IF :new.department_id IS NULL
     THEN
-      :new.reszleg_id := reszleg_seq.nextval;
+      :new.department_id := department_seq.nextval;
     END IF;
     :new.created_on := SYSDATE;
     :new.dml_flag  := 'I';
@@ -101,15 +103,16 @@ BEGIN
 
 END;
 
-CREATE OR REPLACE TRIGGER rendeles_trg
-  BEFORE INSERT OR UPDATE ON rendeles
+
+CREATE OR REPLACE TRIGGER warehouse_order_trg
+  BEFORE INSERT OR UPDATE ON warehouse_order
   FOR EACH ROW
 BEGIN
   IF inserting
   THEN
-    IF :new.rendeles_id IS NULL
+    IF :new.wh_order_id IS NULL
     THEN
-      :new.rendeles_id := rendeles_seq.nextval;
+      :new.wh_order_id := wh_order_seq.nextval;
     END IF;
     :new.created_on := SYSDATE;
     :new.dml_flag  := 'I';
@@ -127,15 +130,15 @@ BEGIN
 
 END;
 
-CREATE OR REPLACE TRIGGER termek_trg
-  BEFORE INSERT OR UPDATE ON termek
+CREATE OR REPLACE TRIGGER department_order_trg
+  BEFORE INSERT OR UPDATE ON department_order
   FOR EACH ROW
 BEGIN
   IF inserting
   THEN
-    IF :new.termek_id IS NULL
+    IF :new.dept_order_id IS NULL
     THEN
-      :new.termek_id := termek_seq.nextval;
+      :new.dept_order_id := dept_order_seq.nextval;
     END IF;
     :new.created_on := SYSDATE;
     :new.dml_flag  := 'I';
@@ -152,3 +155,32 @@ BEGIN
   :new.last_mod := SYSDATE;
 
 END;
+
+
+CREATE OR REPLACE TRIGGER product_trg
+  BEFORE INSERT OR UPDATE ON product
+  FOR EACH ROW
+BEGIN
+  IF inserting
+  THEN
+    IF :new.product_id IS NULL
+    THEN
+      :new.product_id := product_seq.nextval;
+    END IF;
+    :new.created_on := SYSDATE;
+    :new.dml_flag  := 'I';
+    :new.version   := 1;
+  ELSE
+    IF nvl(:new.dml_flag, 'U') <> 'D' 
+    THEN
+      :new.dml_flag := 'U';
+    END IF;
+    
+    :new.version := :old.version + 1;
+  
+  END IF;
+  :new.last_mod := SYSDATE;
+
+END;
+
+
