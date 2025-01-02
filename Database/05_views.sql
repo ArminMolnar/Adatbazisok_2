@@ -18,7 +18,7 @@ SELECT p.product_id,
  FROM product p
  JOIN warehouse w 
   ON w.warehouse_id = p.warehouse_id
- WHERE w.warehouse_name = 'Ruharaktár';
+ WHERE w.warehouse_name = 'Uniform and Gear Warehouse';
        
 SELECT * FROM clothing_wh_current_stock ORDER BY product_id ASC;
 
