@@ -190,4 +190,84 @@ BEGIN
 
 END;
 
+CREATE OR REPLACE TRIGGER product_history_trg
+  AFTER DELETE OR UPDATE OR INSERT ON product
+  FOR EACH ROW
+BEGIN
+
+  IF deleting
+  THEN
+    INSERT INTO product_history
+      (product_id
+      ,supplier_id
+      ,warehouse_id
+      ,product_name
+      ,product_category
+      ,product_size
+      ,stock_quantity
+      ,measurement_unit
+      ,product_price
+      ,min_stock_level
+      ,max_stock_level
+      ,created_on
+      ,last_mod
+      ,mod_user
+      ,dml_flag
+      ,version)
+    VALUES
+      (:old.product_id
+      ,:old.supplier_id
+      ,:old.warehouse_id
+      ,:old.product_name
+      ,:old.product_category
+      ,:old.product_size
+      ,:old.stock_quantity
+      ,:old.measurement_unit
+      ,:old.product_price
+      ,:old.min_stock_level
+      ,:old.max_stock_level
+      ,:old.created_on
+      ,SYSDATE
+      ,sys_context('USERENV', 'OS_USER')
+      ,'D'
+      ,:old.version + 1);
+  ELSE
+    INSERT INTO product_history
+      (product_id
+      ,supplier_id
+      ,warehouse_id
+      ,product_name
+      ,product_category
+      ,product_size
+      ,stock_quantity
+      ,measurement_unit
+      ,product_price
+      ,min_stock_level
+      ,max_stock_level
+      ,created_on
+      ,last_mod
+      ,mod_user
+      ,dml_flag
+      ,version)
+    VALUES
+      (:new.product_id
+      ,:new.supplier_id
+      ,:new.warehouse_id
+      ,:new.product_name
+      ,:new.product_category
+      ,:new.product_size
+      ,:new.stock_quantity
+      ,:new.measurement_unit
+      ,:new.product_price
+      ,:new.min_stock_level
+      ,:new.max_stock_level
+      ,:new.created_on
+      ,:new.last_mod
+      ,:new.mod_user
+      ,:new.dml_flag
+      ,:new.version);
+  END IF;
+END;
+
+
 
