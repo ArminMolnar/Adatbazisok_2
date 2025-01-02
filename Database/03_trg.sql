@@ -21,6 +21,7 @@ BEGIN
   
   END IF;
   :new.last_mod := SYSDATE; 
+  :new.mod_user := sys_context('USERENV', 'OS_USER');
 END;
 
 CREATE OR REPLACE TRIGGER wh_coordinator_trg
@@ -46,6 +47,7 @@ BEGIN
   
   END IF;
   :new.last_mod := SYSDATE;
+  :new.mod_user := sys_context('USERENV', 'OS_USER');
 
 END;
 
@@ -73,6 +75,7 @@ BEGIN
   
   END IF;
   :new.last_mod := SYSDATE;
+  :new.mod_user := sys_context('USERENV', 'OS_USER');
 
 END;
 
@@ -100,6 +103,7 @@ BEGIN
   
   END IF;
   :new.last_mod := SYSDATE;
+  :new.mod_user := sys_context('USERENV', 'OS_USER');
 
 END;
 
@@ -127,6 +131,7 @@ BEGIN
   
   END IF;
   :new.last_mod := SYSDATE;
+  :new.mod_user := sys_context('USERENV', 'OS_USER');
 
 END;
 
@@ -153,6 +158,7 @@ BEGIN
   
   END IF;
   :new.last_mod := SYSDATE;
+  :new.mod_user := sys_context('USERENV', 'OS_USER');
 
 END;
 
@@ -180,6 +186,7 @@ BEGIN
   
   END IF;
   :new.last_mod := SYSDATE;
+  :new.mod_user := sys_context('USERENV', 'OS_USER');
 
 END;
 
