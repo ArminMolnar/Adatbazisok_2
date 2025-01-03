@@ -89,7 +89,11 @@ CREATE TABLE warehouse_order(
        last_mod DATE,
        mod_user varchar2(100),
        dml_flag VARCHAR2(1),
-       version NUMBER         
+       version NUMBER,
+       constraint wh_order_wh_coord_fk foreign key (wh_coordinator_id) references wh_coordinator(wh_coordinator_id),
+       constraint wh_order_supplier_fk foreign key (supplier_id) references supplier(supplier_id),
+       constraint wh_order_product_fk foreign key (product_id) references product(product_id),
+       constraint wh_quantity_check check (quantity > 0)               
 )TABLESPACE users;
 
 
@@ -106,7 +110,11 @@ CREATE TABLE department_order(
        last_mod DATE,
        mod_user varchar2(100),
        dml_flag VARCHAR2(1),
-       version NUMBER         
+       version NUMBER,
+       constraint dept_order_dept_fk foreign key (dept_id) references department(department_id),
+       constraint dept_order_wh_coord_fk foreign key (wh_coordinator_id) references wh_coordinator(wh_coordinator_id),
+       constraint dept_order_product_fk foreign key (product_id) references product(product_id), 
+       constraint quantity_check check (quantity > 0)        
 )TABLESPACE users;
 
 
@@ -129,6 +137,15 @@ CREATE TABLE product_history(
        version NUMBER       
 )TABLESPACE users;
 
+CREATE TABLE error_log(
+  error_id      NUMBER,
+  error_time    DATE DEFAULT SYSDATE,
+  error_message VARCHAR2(4000),
+  error_value   varchar2(4000),  
+  api         VARCHAR2(100)
+);
+
+drop table error_log;
 
 
 
