@@ -66,19 +66,19 @@ values ((select s.supplier_id from supplier s where s.supplier_name = 'ArmyWear 
 
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'ArmyWear Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'field cap', 'clothing', 'one-size', 66, 'ea', 5400, 80, 240);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'field cap', 'clothing', 'one-size', 66, 'ea', 5400, 30, 240);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'ArmyWear Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'tactical scarf', 'clothing', 'one-size', 132, 'ea', 3200 , 80, 220);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'tactical scarf', 'clothing', 'one-size', 132, 'ea', 3200 , 30, 240);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'ArmyWear Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'tactical gloves', 'clothing', 'S 7', 70, 'pairs', 1500, 40, 150);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'tactical gloves', 'clothing', 'S 7', 70, 'pairs', 1500, 20, 160);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'ArmyWear Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'tactical gloves', 'clothing', 'M 8', 75, 'pairs', 1500, 40, 150);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'tactical gloves', 'clothing', 'M 8', 75, 'pairs', 1500, 20, 160);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'ArmyWear Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'tactical gloves', 'clothing', 'L 9', 82, 'pairs', 1500, 40, 150);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Uniform and Gear Warehouse'), 'tactical gloves', 'clothing', 'L 9', 82, 'pairs', 1500, 20, 160);
 
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'SuperMarch Essentials'), 
@@ -129,22 +129,22 @@ values ((select s.supplier_id from supplier s where s.supplier_name = 'SuperMarc
 
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'Tacticraft Supply Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'tactical backpack', 'tactical equipment', '36L', 36, 'ea' ,8400, 15, 80);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'tactical backpack', 'tactical equipment', '36L', 36, 'ea' ,8400, 15, 120);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'Tacticraft Supply Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'tactical backpack', 'tactical equipment', '36L+', 42, 'ea', 15000, 20, 80);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'tactical backpack', 'tactical equipment', '36L+', 42, 'ea', 15000, 15, 120);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'Tacticraft Supply Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'field tent', 'tactical equipment', '2-4', 20, 'person', 145000, 10, 34);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'field tent', 'tactical equipment', '2-4', 20, 'person', 145000, 5, 40);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'Tacticraft Supply Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'field tent', 'tactical equipment', '4-6', 51, 'person', 254000, 8, 30);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'field tent', 'tactical equipment', '4-6', 20, 'person', 254000, 5, 40);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'Tacticraft Supply Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'field tent', 'tactical equipment', '6-8', 12, 'person', 300000, 5, 28);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'field tent', 'tactical equipment', '6-8', 12, 'person', 300000, 5, 40);
 insert into product (supplier_id, warehouse_id, product_name, product_category, product_size, stock_quantity, measurement_unit, product_price, min_stock_level, max_stock_level)
 values ((select s.supplier_id from supplier s where s.supplier_name = 'Tacticraft Supply Co.'), 
-(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'flashlight', 'tactical equipment', '',60, 'ea', 6000, 20, 80);
+(select wh.warehouse_id from warehouse wh where wh.warehouse_name = 'Tactical Equipment Warehouse'), 'flashlight', 'tactical equipment', '',60, 'ea', 6000, 25, 200);
 
 
 
