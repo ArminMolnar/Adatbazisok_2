@@ -87,15 +87,43 @@ CREATE OR REPLACE PACKAGE BODY pkg_product IS
     END IF;
   END add_product;
 
+  -- DELETE PRODUCT PROCEDURE
   PROCEDURE delete_product(p_product_id IN NUMBER) IS
-  BEGIN
-    DELETE FROM product WHERE product_id = p_product_id;
-  
-  END delete_product;
+    v_product_id number;
+BEGIN
+    BEGIN
+        SELECT p.product_id INTO v_product_id
+        FROM product p  
+        WHERE p.product_id = p_product_id;    
+    EXCEPTION
+        WHEN no_data_found THEN         
+            pkg_error_log.error_log(
+                p_error_message => dbms_utility.format_error_backtrace,             
+                p_error_value => 'Invalid ID has been entered: ' || p_product_id,
+                p_api => 'pkg_product.delete_product'
+            );
+            RAISE pkg_exception.invalid_product_id_exception;
+            
+    END;
 
-  PROCEDURE list_low_stock(p_warehouse_id IN NUMBER)
+    DELETE FROM product WHERE product_id = p_product_id;
+
+EXCEPTION
+    WHEN pkg_exception.invalid_product_id_exception THEN
+       
+        RAISE_APPLICATION_ERROR(-20000, 'Invalid ID');
+    WHEN OTHERS THEN
+        pkg_error_log.error_log(
+            p_error_message => dbms_utility.format_error_backtrace,
+            p_error_value => 'Error deleting product with ID: ' || p_product_id,
+            p_api => 'pkg_product.delete_product'
+        );
+        RAISE_APPLICATION_ERROR(pkg_exception.gc_invalid_id_code, 'Error deleting product');
+END delete_product;
   
-   IS
+
+  -- LIST LOW STOCK PROCEDURE
+  PROCEDURE list_low_stock(p_warehouse_id IN NUMBER) IS
     res_warehouse_name VARCHAR2(30);
   BEGIN
     SELECT wh.warehouse_name
