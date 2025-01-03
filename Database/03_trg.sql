@@ -269,5 +269,15 @@ BEGIN
   END IF;
 END;
 
+CREATE OR REPLACE TRIGGER error_log_trg
+  BEFORE INSERT ON error_log
+  FOR EACH ROW
+BEGIN
+  IF :new.error_id IS NULL
+  THEN
+    :new.error_id := error_log_seq.nextval;
+  END IF;
+END;
+  
 
 
