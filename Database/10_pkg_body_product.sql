@@ -14,7 +14,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_product IS
     v_warehouse_id  NUMBER;
     v_supplier_id   NUMBER;
     v_quantity      NUMBER;
-    --v_max_stock_level NUMBER;
   
   BEGIN
   
@@ -96,7 +95,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_product IS
         ,p_min_stock_level
         ,p_max_stock_level);
       dbms_output.put_line('Product added');
-      COMMIT;
+      
     END IF;
   
   EXCEPTION
@@ -114,7 +113,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_product IS
                               'Too many products added or too low maximum stock level');
     
     WHEN OTHERS THEN
-      ROLLBACK;
+      
       pkg_error_log.error_log(p_error_message => dbms_utility.format_error_backtrace,
                               p_error_value   => 'Error while attempting to add product. ',
                               p_api           => 'pkg_product.add_product');
@@ -140,7 +139,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_product IS
   
     DELETE FROM product WHERE product_id = p_product_id;
     dbms_output.put_line('Deleted product with ID: ' || p_product_id);
-    COMMIT;
+    
   EXCEPTION
     WHEN pkg_exception.invalid_id_exception THEN
       pkg_error_log.error_log(p_error_message => dbms_utility.format_error_backtrace,
@@ -151,7 +150,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_product IS
                               'Invalid ID');
     
     WHEN OTHERS THEN
-      ROLLBACK;
+      
       pkg_error_log.error_log(p_error_message => dbms_utility.format_error_backtrace,
                               p_error_value   => 'Error while attempting to delete product with ID: ' ||
                                                  p_product_id,
@@ -162,9 +161,11 @@ CREATE OR REPLACE PACKAGE BODY pkg_product IS
   END delete_product;
 
   -- LIST LOW STOCK PROCEDURE
-  PROCEDURE list_low_stock(p_warehouse_id IN NUMBER) IS
+  PROCEDURE list_low_stock(p_warehouse_id IN NUMBER, p_low_stock OUT low_stock_list) IS
     warehouse_name VARCHAR2(30);
+   
   BEGIN
+    p_low_stock := low_stock_list();
     BEGIN
       SELECT wh.warehouse_name
         INTO warehouse_name
@@ -190,10 +191,11 @@ CREATE OR REPLACE PACKAGE BODY pkg_product IS
                WHERE p.warehouse_id = p_warehouse_id
                  AND (p.stock_quantity - p.min_stock_level) < 15)
     LOOP
-      dbms_output.put_line('Product ID: ' || i.product_id || ' - Name: ' ||
+      p_low_stock.extend;
+      p_low_stock(p_low_stock.count) := 'Product ID: ' || i.product_id || ' - Name: ' ||
                            i.product_name || ' - Size: ' || i.product_size ||
                            ' - Current stock: ' || i.stock_quantity ||
-                           ' - Minimum stock:' || i.min_stock_level);
+                           ' - Minimum stock:' || i.min_stock_level;
     END LOOP;
   EXCEPTION
     WHEN pkg_exception.invalid_id_exception THEN
