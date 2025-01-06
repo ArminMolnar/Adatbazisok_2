@@ -43,9 +43,8 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
       ,p_product_id
       ,p_quantity
       ,SYSDATE
-      ,'Active');
+      ,'Active');  
   
-    COMMIT;
     dbms_output.put_line('Order sent to supplier. Order ID: ' ||
                          wh_order_seq.currval);
   
@@ -66,8 +65,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
       raise_application_error(pkg_exception.gc_over_max_capacity_code,
                               'Attempted to order too many products.');
     
-    WHEN OTHERS THEN
-       ROLLBACK;
+    WHEN OTHERS THEN     
       pkg_error_log.error_log(p_error_message => dbms_utility.format_error_backtrace,
                               p_error_value   => 'Error occured',
                               p_api           => 'pkg_order.warehouse_order_proc');
@@ -106,9 +104,8 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
       UPDATE warehouse_order
          SET status          = 'Completed'
             ,completion_date = SYSDATE
-       WHERE wh_order_id = p_wh_order_id;
-    
-      COMMIT;
+       WHERE wh_order_id = p_wh_order_id;    
+      
       dbms_output.put_line('Order completed. Product arrived to the warehouse');
     ELSE
       dbms_output.put_line('Order already processed');
@@ -124,8 +121,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
       raise_application_error(pkg_exception.gc_invalid_id_code,
                               'Invalid ID');
     
-    WHEN OTHERS THEN
-      ROLLBACK;
+    WHEN OTHERS THEN      
       pkg_error_log.error_log(p_error_message => dbms_utility.format_error_backtrace,
                               p_error_value   => 'Error occured',
                               p_api           => 'pkg_order.deliver_to_warehouse');
@@ -231,9 +227,8 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
                            ((v_min_stock_level * 4) +
                            (p_quantity - v_available_quantity)));
       dbms_output.put_line('Not enough products to fulfill the order. Order sent to supplier, please complete that order first');
-    END IF;
-  
-    COMMIT;
+    END IF;  
+    
     dbms_output.put_line('Product had been ordered');
   
   EXCEPTION
@@ -256,8 +251,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
       raise_application_error(pkg_exception.gc_over_max_capacity_code,
                               'Attempted to order too many products.');
     
-    WHEN OTHERS THEN
-      ROLLBACK;
+    WHEN OTHERS THEN   
       pkg_error_log.error_log(p_error_message => dbms_utility.format_error_backtrace,
                               p_error_value   => 'Error occured',
                               p_api           => 'pkg_order.department_order_proc');
@@ -308,9 +302,8 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
       UPDATE department_order
          SET status          = 'Completed'
             ,completion_date = SYSDATE
-       WHERE dept_order_id = p_dept_order_id;
-    
-      COMMIT;
+       WHERE dept_order_id = p_dept_order_id;    
+     
       dbms_output.put_line('Order completed. Product delivered to department');
     ELSE
       dbms_output.put_line('Order already processed.');
@@ -331,8 +324,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
       raise_application_error(pkg_exception.gc_insufficient_stock_code,
                               'Insufficient stock. Confirm supplier delivery first.');
     
-    WHEN OTHERS THEN
-      ROLLBACK;
+    WHEN OTHERS THEN      
       pkg_error_log.error_log(p_error_message => dbms_utility.format_error_backtrace,
                               p_error_value   => 'Error occured',
                               p_api           => 'pkg_order.deliver_to_department');
@@ -340,27 +332,30 @@ CREATE OR REPLACE PACKAGE BODY pkg_order IS
                               'Error occured');
       RAISE;
   END deliver_to_department;
+  
 
-  -- LISTING ACTIVE DEPARTMENT ORDERS --
-  FUNCTION list_active_dept_order(p_status IN VARCHAR2 DEFAULT 'Active')
-    RETURN VARCHAR2 IS
+  -- LISTING ACTIVE DEPARTMENT ORDERS --  
+FUNCTION list_active_dept_order(p_status IN VARCHAR2 DEFAULT 'Active')
+  RETURN order_list IS
+
+  v_result order_list := order_list();
+
+BEGIN
+  FOR i IN (SELECT dept_o.dept_order_id
+                  ,dept_o.product_id
+                  ,to_char(dept_o.order_date, 'YYYY. MM. DD. HH24:MI:SS') AS order_date
+              FROM department_order dept_o
+             WHERE dept_o.status = p_status
+             ORDER BY dept_o.order_date ASC)
+  LOOP
   
-    v_result VARCHAR2(4000);
-  
-  BEGIN
-    FOR i IN (SELECT dept_o.dept_order_id
-                    ,dept_o.product_id
-                    ,to_char(dept_o.order_date, 'YYYY. MM. DD. HH24:MI:SS') AS order_date            
-                FROM department_order dept_o
-               WHERE dept_o.status = p_status
-               ORDER BY dept_o.order_date ASC)
-    LOOP
-      v_result := v_result || 'Order ID: ' || i.dept_order_id ||
-                  ' Product ID: ' || i.product_id || ' Order date: ' ||
-                  i.order_date || chr(10);
-    END LOOP;
-    RETURN v_result;
-  
-  END list_active_dept_order;
+    v_result.extend;
+    v_result(v_result.count) := 'Order ID: ' || i.dept_order_id ||
+                                ' Product ID: ' || i.product_id ||
+                                ' Order date: ' || i.order_date;
+  END LOOP;
+  RETURN v_result;
+
+END list_active_dept_order;
 
 END pkg_order;
