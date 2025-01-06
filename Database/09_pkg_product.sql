@@ -9,6 +9,6 @@ CREATE OR REPLACE PACKAGE pkg_product IS
                        ,p_max_stock_level  IN NUMBER);
 
   PROCEDURE delete_product(p_product_id IN NUMBER);
-  PROCEDURE list_low_stock(p_warehouse_id IN NUMBER);
+  PROCEDURE list_low_stock(p_warehouse_id IN NUMBER, p_low_stock OUT low_stock_list);
 
 END pkg_product;
