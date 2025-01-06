@@ -17,9 +17,22 @@ BEGIN
                                   p_quantity   => 14);  
 END;
 
--- Testing the function
 BEGIN
-  dbms_output.put_line(pkg_order.list_active_dept_order());
+  pkg_order.department_order_proc(p_dept_id    => 4002,
+                                  p_product_id => 6018,
+                                  p_quantity   => 13);  
+END;
+
+-- Testing the function
+DECLARE
+  active_orders order_list;
+BEGIN
+  active_orders := pkg_order.list_active_dept_order('Active');
+
+  FOR i IN 1 .. active_orders.count
+  LOOP
+    dbms_output.put_line(active_orders(i));
+  END LOOP;
 END;
 
 
