@@ -11,5 +11,5 @@ CREATE OR REPLACE PACKAGE pkg_order IS
   PROCEDURE deliver_to_department(p_dept_order_id IN NUMBER);
 
   FUNCTION list_active_dept_order(p_status IN VARCHAR2 DEFAULT 'Active')
-    RETURN VARCHAR2;
+    RETURN order_list;
 END pkg_order;
