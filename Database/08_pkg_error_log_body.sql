@@ -6,14 +6,12 @@ CREATE OR REPLACE PACKAGE BODY pkg_error_log IS
     PRAGMA AUTONOMOUS_TRANSACTION;
   BEGIN
     INSERT INTO error_log
-      (error_id
-      ,error_time
+      (error_time
       ,error_message
       ,error_value
       ,api)
     VALUES
-      (error_log_seq.nextval
-      ,sysdate
+      (sysdate
       ,p_error_message
       ,p_error_value
       ,p_api);
@@ -22,3 +20,4 @@ CREATE OR REPLACE PACKAGE BODY pkg_error_log IS
   END error_log;
 
 END pkg_error_log;
+
