@@ -21,26 +21,24 @@ SELECT * FROM department_order WHERE product_id = 6000 ORDER BY completion_date 
 
 
 
-
-
 -- Invalid Department ID
 BEGIN
   pkg_order.department_order_proc(p_dept_id    => 4004,
-                                  p_product_id => 6003,
+                                  p_product_id => 6001,
                                   p_quantity   => 30);  
 END;
 
 -- Attempting to order too many products
 BEGIN
-  pkg_order.department_order_proc(p_dept_id    => 4003,
-                                  p_product_id => 6003,
+  pkg_order.department_order_proc(p_dept_id    => 4001,
+                                  p_product_id => 6001,
                                   p_quantity   => 500);  
 END;
 
 
 -- Entering 0 to p_quantity
 BEGIN
-  pkg_order.department_order_proc(p_dept_id    => 4003,
-                                  p_product_id => 6003,
+  pkg_order.department_order_proc(p_dept_id    => 4001,
+                                  p_product_id => 6002,
                                   p_quantity   => 0);  
 END;
