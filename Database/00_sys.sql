@@ -30,6 +30,6 @@ GRANT CREATE SEQUENCE TO warehouse_mgr;
 GRANT CREATE TRIGGER TO warehouse_mgr;
 GRANT CREATE VIEW TO warehouse_mgr;
 GRANT CREATE PROCEDURE TO warehouse_mgr;
-
+GRANT CREATE TYPE TO warehouse_mgr;
 
 
