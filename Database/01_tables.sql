@@ -12,13 +12,15 @@ CREATE TABLE product(
        max_stock_level NUMBER,
        created_on DATE DEFAULT SYSDATE NOT NULL,
        last_mod DATE,
-       mod_user varchar2(100),
+       mod_user VARCHAR2(100),
        dml_flag VARCHAR2(1),
        version NUMBER,
-       constraint supplier_fk foreign key (supplier_id) references supplier(supplier_id),
-       constraint warehouse_fk foreign key (warehouse_id) references warehouse(warehouse_id),
-       constraint quantity_positive_check check (stock_quantity >= 0),
-       constraint price_positive_check check (product_price >= 0)
+       CONSTRAINT supplier_fk foreign key (supplier_id) references supplier(supplier_id),
+       CONSTRAINT warehouse_fk foreign key (warehouse_id) references warehouse(warehouse_id),
+       CONSTRAINT quantity_positive_check CHECK (stock_quantity > 0),
+       CONSTRAINT price_positive_check CHECK (product_price > 0),
+       CONSTRAINT min_stock_positive_check CHECK (min_stock_level > 0),
+       CONSTRAINT stock_level_check CHECK (max_stock_level > min_stock_level)
        )TABLESPACE users;
 
 
@@ -145,7 +147,7 @@ CREATE TABLE error_log(
   api         VARCHAR2(100)
 );
 
-drop table error_log;
+
 
 
 
